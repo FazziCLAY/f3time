@@ -7,6 +7,6 @@ import net.minecraft.client.gui.screen.Screen;
 public class F3TimeModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (ConfigScreenFactory<Screen>) parent -> new ConfigScreen(parent);
+        return (ConfigScreenFactory<Screen>) ConfigScreen::new;
     }
 }
