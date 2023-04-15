@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fazziclay.openoptimizemc.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "com.fazziclay.openoptimizemc.mixin.MixinConfig",
+  "mixins": [
+  ],
+  "client": [
+    "BlockEntityRenderDispatcherMixin",
+    "PlayerEntityRendererMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

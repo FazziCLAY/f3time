@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "f3time",
+  "id": "openoptimizemc",
   "version": "${version}",
 
-  "name": "F3Time",
-  "description": "Show time in F3",
+  "name": "OpenOptimizeMc",
+  "description": "Optimize minecraft",
   "authors": [
     "FazziCLAY"
   ],
   "contact": {
     "homepage": "https://fazziclay.github.io/",
-    "sources": "https://github.com/FazziCLAY/F3Time"
+    "sources": "https://github.com/FazziCLAY/OpenOptimizeMc"
   },
 
   "license": "CC0-1.0",
@@ -18,14 +18,14 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.fazziclay.f3time.F3Time"
+      "com.fazziclay.openoptimizemc.OpenOptimizeMc"
     ],
     "modmenu": [
-      "com.fazziclay.f3time.F3TimeModMenu"
+      "com.fazziclay.openoptimizemc.ModMenu"
     ]
   },
   "mixins": [
-    "f3name.mixins.json"
+    "openoptimizemc.mixins.json"
   ],
 
   "depends": {
