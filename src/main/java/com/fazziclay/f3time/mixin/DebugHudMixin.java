@@ -12,11 +12,8 @@ import java.util.List;
 @Mixin(DebugHud.class)
 public class DebugHudMixin {
 	@Inject(at = @At("RETURN"), method = "getLeftText")
-	private List<String> getLeftText(CallbackInfoReturnable<List<String>> info) {
+	private void getLeftText(CallbackInfoReturnable<List<String>> info) {
 		List<String> r = info.getReturnValue();
-
 		r.add(F3Time.genText());
-
-		return r;
 	}
 }

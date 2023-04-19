@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "F3Time",
-  "description": "Show time in F3",
+  "description": "Show time and uptime in F3",
   "authors": [
     "FazziCLAY"
   ],
@@ -13,7 +13,7 @@
     "sources": "https://github.com/FazziCLAY/F3Time"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
 
   "environment": "*",
   "entrypoints": {
