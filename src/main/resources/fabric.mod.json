@@ -21,13 +21,12 @@
       "com.fazziclay.openoptimizemc.OpenOptimizeMc"
     ],
     "modmenu": [
-      "com.fazziclay.openoptimizemc.ModMenu"
+      "com.fazziclay.openoptimizemc.gui.ModMenu"
     ]
   },
   "mixins": [
     "openoptimizemc.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.17",
     "fabric-api": "*",

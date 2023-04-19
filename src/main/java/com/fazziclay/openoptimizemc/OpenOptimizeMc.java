@@ -1,5 +1,9 @@
 package com.fazziclay.openoptimizemc;
 
+import com.fazziclay.openoptimizemc.behavior.BehaviorManager;
+import com.fazziclay.openoptimizemc.behavior.BehaviorType;
+import com.fazziclay.openoptimizemc.config.Config;
+import com.fazziclay.openoptimizemc.config.ConfigScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -11,24 +15,34 @@ import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Random;
+import java.io.File;
 
 public class OpenOptimizeMc implements ClientModInitializer {
     public static final String ID = "openoptimizemc";
     public static final Logger LOGGER = LoggerFactory.getLogger(ID);
-    public static final Random RANDOM = new Random();
-
 
     private static volatile OpenOptimizeMc instance;
     private static Config config;
+    private static final BehaviorManager behaviorManager = new BehaviorManager();
 
 
     public static OpenOptimizeMc getInstance() {
         return instance;
     }
 
+    public static boolean debug(boolean b) {
+        if (Version.DEVELOPMENT) {
+            return b;
+        }
+        return false;
+    }
+
     public static Config getConfig() {
         return config;
+    }
+
+    public static BehaviorManager getBehaviorManager() {
+        return behaviorManager;
     }
 
     private boolean togglePlayers = false;
@@ -39,7 +53,11 @@ public class OpenOptimizeMc implements ClientModInitializer {
     public void onInitializeClient() {
         instance = this;
 
-        config = Config.load();
+        config = Config.load(new File(MinecraftClient.getInstance().runDirectory, "config/openoptimizemc.json"));
+        OP.setEnabled(config.isAdvancedProfiler());
+        behaviorManager._updateConfig(config);
+        behaviorManager.setBehaviorType(config.isAIBehavior() ? BehaviorType.AI_AUTOMATIC : BehaviorType.CONFIG_DIRECTLY);
+        ClientTickEvents.START_CLIENT_TICK.register(behaviorManager::tick);
 
         KeyBinding binding_togglePlayers = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.openoptimizemc.togglePlayers", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_I, "key.category.first.test"));
         KeyBinding binding_toggleOnlyHeads = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.openoptimizemc.toggleOnlyHeads", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_U, "key.category.first.test"));
