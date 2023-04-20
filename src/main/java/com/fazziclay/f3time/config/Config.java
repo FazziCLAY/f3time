@@ -1,4 +1,4 @@
-package com.fazziclay.f3time;
+package com.fazziclay.f3time.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,13 +6,14 @@ import com.google.gson.annotations.SerializedName;
 import net.minecraft.client.MinecraftClient;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public class Config {
+    @SerializedName("enabled")
+    private boolean enabled = true;
     @SerializedName("pattern")
     private String pattern = "§a[F3Time] Time: $(time); Play time: $(play_time)";
 
@@ -29,17 +30,16 @@ public class Config {
         }
     }
 
-    public void load() {
+    public static Config load() {
         File f = new File(MinecraftClient.getInstance().runDirectory, "config/f3time.json");
-        if (!f.exists()) return;
+        if (!f.exists()) return new Config();
         try {
             String s = Files.readString(f.toPath(), StandardCharsets.UTF_8);
             Gson gson = new Gson();
-            Config config = gson.fromJson(s, Config.class);
-            this.pattern = config.pattern;
+            return gson.fromJson(s, Config.class);
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to load F3Time config.", e);
         }
     }
 
@@ -50,5 +50,13 @@ public class Config {
     public void setPattern(String pattern) {
         this.pattern = pattern;
         save();
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

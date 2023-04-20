@@ -1,10 +1,10 @@
-package com.fazziclay.f3time;
+package com.fazziclay.f3time.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.minecraft.client.gui.screen.Screen;
 
-public class F3TimeModMenu implements ModMenuApi {
+public class ModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return (ConfigScreenFactory<Screen>) ConfigScreen::new;

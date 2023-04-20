@@ -1,14 +1,11 @@
 package com.fazziclay.f3time;
 
+import com.fazziclay.f3time.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class F3Time implements ClientModInitializer {
@@ -44,7 +41,7 @@ public class F3Time implements ClientModInitializer {
         return String.format("%02d:%02d:%02d", h, m, s);
     }
 
-        public static long calcPlayTime() {
+    public static long calcPlayTime() {
         return (System.currentTimeMillis() / 1000) - launchTime;
     }
 
@@ -52,11 +49,12 @@ public class F3Time implements ClientModInitializer {
     public void onInitializeClient() {
         instance = this;
 
-        config = new Config();
-        config.load();
+        config = Config.load();
 
         timeFormat = new SimpleDateFormat("HH:mm:ss");
 
         launchTime = System.currentTimeMillis() / 1000;
+
+        LOGGER.info("F3Time initialized!");
     }
 }

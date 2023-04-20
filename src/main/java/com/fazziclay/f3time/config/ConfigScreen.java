@@ -1,18 +1,15 @@
-package com.fazziclay.f3time;
+package com.fazziclay.f3time.config;
 
+import com.fazziclay.f3time.F3Time;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
-import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerWarningScreen;
-import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.awt.*;
-import java.util.function.Consumer;
 
 public class ConfigScreen extends Screen {
     private final Screen parent;
@@ -22,10 +19,12 @@ public class ConfigScreen extends Screen {
     private ButtonWidget reset;
     private ButtonWidget resetInstantly;
     private MultilineText preview;
+    private ButtonWidget enabled;
 
     public ConfigScreen(Screen parent) {
         super(Text.of("F3Name"));
         this.parent = parent;
+        this.client = MinecraftClient.getInstance();
     }
 
     @Override
@@ -34,6 +33,15 @@ public class ConfigScreen extends Screen {
 
         cancel = new ButtonWidget(width - 60, height - 30, 50, 20, Text.of("Close"), button -> this.close());
         addSelectableChild(cancel);
+
+
+        enabled = new ButtonWidget(10, height - 30, 90, 20, Text.of("Enabled: ?"), (v) -> {
+            F3Time.getConfig().setEnabled(!F3Time.getConfig().isEnabled());
+            stateButton(enabled, "Enabled", F3Time.getConfig().isEnabled());
+        });
+        addSelectableChild(enabled);
+        stateButton(enabled, "Enabled", F3Time.getConfig().isEnabled());
+
 
         resetInstantly = new ButtonWidget(width - 65, height - 30 - 30, 60, 20, Text.of("§c[ RESET! ]"), button -> {
             pattern.setText(new Config().getPattern());
@@ -68,6 +76,10 @@ public class ConfigScreen extends Screen {
         });
     }
 
+    private void stateButton(ButtonWidget button, String text, boolean state) {
+        button.setMessage(Text.of(text + ": " + (state ? "§aON" : "§cOFF")));
+    }
+
     @Override
     public void tick() {
         pattern.tick();
@@ -83,6 +95,7 @@ public class ConfigScreen extends Screen {
         this.resetInstantly.render(matrices, mouseX, mouseY, delta);
         this.pattern.render(matrices, mouseX, mouseY, delta);
         this.cancel.render(matrices, mouseX, mouseY, delta);
+        this.enabled.render(matrices, mouseX, mouseY, delta);
 
         preview = MultilineText.create(textRenderer, Text.of(F3Time.genText()));
         preview.drawWithShadow(matrices, 10, 100, 2, Color.WHITE.getRGB());

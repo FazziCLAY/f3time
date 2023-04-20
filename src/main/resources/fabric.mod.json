@@ -9,19 +9,17 @@
     "FazziCLAY"
   ],
   "contact": {
-    "homepage": "https://fazziclay.github.io/",
+    "homepage": "https://fazziclay.github.io/f3time",
     "sources": "https://github.com/FazziCLAY/F3Time"
   },
-
-  "license": "CC0-1.0",
-
+  "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "client": [
       "com.fazziclay.f3time.F3Time"
     ],
     "modmenu": [
-      "com.fazziclay.f3time.F3TimeModMenu"
+      "com.fazziclay.f3time.config.ModMenu"
     ]
   },
   "mixins": [
@@ -30,8 +28,7 @@
 
   "depends": {
     "fabricloader": ">=0.14.17",
-    "fabric-api": "*",
-    "minecraft": "~1.19.2",
+    "minecraft": ">=1.19",
     "java": ">=17"
   }
 }
