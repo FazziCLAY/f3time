@@ -14,7 +14,7 @@
     "sources": "https://github.com/FazziCLAY/F3Time"
   },
   "license": "MIT",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "com.fazziclay.f3time.F3Time"
