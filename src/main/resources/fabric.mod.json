@@ -5,6 +5,7 @@
 
   "name": "F3Time",
   "description": "Show time in F3",
+  "icon": "assets/f3time/f3time_icon.png",
   "authors": [
     "FazziCLAY"
   ],
