@@ -15,7 +15,12 @@ public class DebugHudMixin {
 	private void getLeftText(CallbackInfoReturnable<List<String>> info) {
 		if (F3Time.getConfig().isEnabled()) {
 			List<String> r = info.getReturnValue();
-			r.add(F3Time.genText());
+			int pos = F3Time.getConfig().getPosition();
+			if (pos < 0) {
+				r.add(F3Time.genText());
+			} else {
+				r.add(Math.min(pos, r.size()), F3Time.genText());
+			}
 		}
 	}
 }
